@@ -2,6 +2,11 @@
 name = "bloom"
 version = "0.1.0"
 authors = ["awright <awright@freelancer.com>"]
+description = "A basic bloom filter implementation in rust"
+repository = "https://github.com/aywrite/bloom"
+readme = "README.md"
+keywords = ["bloom"]
+license = "MIT"
 
 [dependencies]
 fnv = "1.0.3"

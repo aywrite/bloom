@@ -55,16 +55,32 @@ use std::hash::Hasher;
 /// }
 ///
 /// ```
+#[derive(PartialEq, Eq, Hash, Debug, Clone)]
 pub struct BloomFilter {
     data: Vec<bool>,
     size: usize,
     num_hashers: usize,
 }
 
+impl Default for BloomFilter {
+    fn default() -> BloomFilter {
+        let size = 100;
+        BloomFilter {
+            data: vec![false; size],
+            size,
+            num_hashers: 3,
+        }
+    }
+}
+
 //TODO implement:
 // - is_empty
 // - clear
 // - with_size_and_num_hashers
+// - use better hash seeds
+// - support a vec of hashers?
+// - input validation (e.g. don't create bloom filter of size 0)
+// - dedicated bit vector type
 impl BloomFilter {
     pub fn new() -> BloomFilter {
         let size = 100;
