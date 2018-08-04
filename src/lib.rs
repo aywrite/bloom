@@ -5,6 +5,15 @@
 //!
 //! Uses n hash function generated from two FNV hash function with different seeds. Based on the
 //! paper "Less Hashing, Same Performance: Building a Better Bloom Filter".
+//! # Examples
+//!
+//! ```
+//! use bloom::BloomFilter;
+//! let mut bf = BloomFilter::new();
+//! assert_eq!(bf.contains(1), false);
+//! bf.insert(2);
+//! assert_eq!(bf.contains(2), true);
+//! ```
 extern crate fnv;
 
 use fnv::FnvHasher;
@@ -28,7 +37,6 @@ use std::hash::Hasher;
 /// # Examples
 ///
 /// ```
-/// extern crate bloom;
 /// use bloom::BloomFilter;
 ///
 /// let mut books = BloomFilter::new();
