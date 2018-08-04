@@ -1,3 +1,10 @@
+//! A basic implementation of a bloom filter in Rust.
+//!
+//! This project is mostly just an excuse to play around in Rust. It does not aim to be an optimal
+//! implementation of a bloom filter.
+//!
+//! Uses n hash function generated from two FNV hash function with different seeds. Based on the
+//! paper "Less Hashing, Same Performance: Building a Better Bloom Filter".
 extern crate fnv;
 
 use fnv::FnvHasher;
