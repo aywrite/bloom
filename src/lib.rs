@@ -48,12 +48,10 @@ use std::hash::Hasher;
 /// books.insert("The Great Gatsby");
 ///
 /// // Check for a specific one.
-/// // Unlike a conventional set this may return true or false. If contains returns false
-/// // we can be sure that it isn't in the set.
+/// // Unlike a conventional set this may return true or false. If contains returns false we can be sure that it isn't in the set.
 /// if !books.contains("The Winds of Winter") {
 ///     println!("We have some books, but The Winds of Winter ain't one.");
 /// }
-///
 /// ```
 #[derive(PartialEq, Eq, Hash, Debug, Clone)]
 pub struct BloomFilter {
@@ -81,6 +79,7 @@ impl Default for BloomFilter {
 // - support a vec of hashers?
 // - input validation (e.g. don't create bloom filter of size 0)
 // - dedicated bit vector type
+// - extract constants for default size & num hashers
 impl BloomFilter {
     pub fn new() -> BloomFilter {
         let size = 100;
@@ -136,6 +135,7 @@ impl BloomFilter {
     /// ```
     /// use bloom::BloomFilter;
     /// let mut bf = BloomFilter::new();
+    ///
     /// bf.insert(2);
     /// assert_eq!(bf.contains(2), true);
     /// ```
@@ -149,16 +149,19 @@ impl BloomFilter {
 
     /// Returns `false` if the bloom filter **definitely** does not contain a value.
     ///
-    /// A return value of true indicates that the value **may** be in the filter.
+    /// A return value of `true` indicates that the value **may** be in the filter.
     ///
     /// # Examples
     ///
     /// ```
     /// use bloom::BloomFilter;
     /// let mut bf = BloomFilter::new();
+    ///
     /// assert_eq!(bf.contains(1), false);
+    ///
     /// bf.insert(2);
     /// assert_eq!(bf.contains(2), true);
+    ///
     /// bf.insert(3);
     /// assert_eq!(bf.contains(&3), true);
     /// ```
