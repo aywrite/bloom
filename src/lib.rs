@@ -72,8 +72,6 @@ impl Default for BloomFilter {
 }
 
 //TODO implement:
-// - is_empty
-// - clear
 // - with_size_and_num_hashers
 // - use better hash seeds
 // - support a vec of hashers?
@@ -174,6 +172,40 @@ impl BloomFilter {
             }
         }
         return true;
+    }
+
+    /// Returns true if the bloom filter contains no elements.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use bloom::BloomFilter;
+    ///
+    /// let mut bf = BloomFilter::new();
+    /// assert!(bf.is_empty());
+    /// bf.insert(2);
+    /// assert!(!bf.is_empty());
+    /// ```
+    pub fn is_empty(&mut self) -> bool {
+        self.data.iter().all(|x| *x == false)
+    }
+
+    /// Returns true if the bloom filter contains no elements.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use bloom::BloomFilter;
+    ///
+    /// let mut bf = BloomFilter::new();
+    /// bf.insert(2);
+    /// bf.clear();
+    /// assert!(bf.is_empty());
+    /// ```
+    pub fn clear(&mut self) {
+        for i in 0..self.data.len() {
+            self.data[i] = false;
+        }
     }
 
     fn hash<T: Hash>(&mut self, value: T, i: usize) -> usize {
